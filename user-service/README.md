@@ -7,3 +7,4 @@ and profile management.
 Technology: Python
 Deployment: AWS
 Source Control: GitHub
+Updated User Service configuration for development
