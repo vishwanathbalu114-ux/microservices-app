@@ -1,0 +1,46 @@
+name: Microservices CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Microservices
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - user-service
+          - product-service
+          - order-service
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Display Service Information
+        run: |
+          echo "Building ${{ matrix.service }}"
+          echo "Microservice pipeline started"
+
+      - name: Verify Service Directory
+        run: |
+          if [ -d "${{ matrix.service }}" ]; then
+            echo "${{ matrix.service }} directory exists"
+            ls -la "${{ matrix.service }}"
+          else
+            echo "Service directory not found"
+            exit 1
+          fi
